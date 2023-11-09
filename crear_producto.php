@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-
         if($imagen != "jpg" && $imagen != "jpeg" && $imagen != "png" && $imagen != null) {
+            echo "<h1>2</h1>";        
             $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
           } else {
             $target_dir = "img\\";                                     
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <h1>Crear Producto</h1>
-<form method="POST" action="crear_producto.php">
+<form method="POST" action="crear_producto.php" enctype="multipart/form-data">
     <label for="nombre">Nombre:</label>
     <input type="text" name="nombre" id="nombre" required><br>
 
