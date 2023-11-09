@@ -10,6 +10,7 @@
 require 'validar_producto.php';
 
 
+
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=mitiendaonline', 'mitiendaonline', 'mitiendaonline');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $errores = validarProducto($nombre, $precio);
 
+    
 
     if (empty($errores)) {
 
@@ -42,8 +44,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':categoria', $categoria);
 
 
+
+
+        if($imagen != "jpg" && $imagen != "jpeg" && $imagen != "png" && $imagen != null) {
+            $errores[] =  "Solo se permiten imágenes tipo JPG, JPEG, PNG";
+          } else {
+            $target_dir = "img\\";                                     
+
+            move_uploaded_file($_FILES["imagen"], $target_dir); 
+            
+          }
+
+
+          
+
         if ($stmt->execute()) {
-            echo "Producto insertado con éxito.";
+            
+            echo "Se ha añadido el producto.";
             echo '<br><a href="a3.1.php">Volver al menú principal</a>';
         } else {
             echo "Error al insertar el producto.";
@@ -57,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "<li>$error</li>";
         }
         echo '</ul>';
-    }
+    } 
 }
 ?>
 
@@ -73,7 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
     <label for="imagen">Imagen del Producto:</label>
-    <input type="file" name="imagen" id="imagen"><br><br>
+    <input type="file" name="imagen" id="imagen">
+    <br><br>
 
 
     <label for="categoria">Categoría:</label>

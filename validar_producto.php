@@ -12,7 +12,8 @@ function validarProducto($nombre, $precio) {
         $errores[] = "El precio debe ser un número válido.";
     }
 
-
     return $errores;
 }
+
+
 ?>
