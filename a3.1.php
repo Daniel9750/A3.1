@@ -16,7 +16,7 @@ if (isset($_POST['crear'])) {
 } elseif (isset($_POST['mod'])) {
     header("Location: modificar_producto.php");
 } 
-/* De momento, estarán comentadas porque no se han creado los archivos correspondientes.
+/* De momento, estará comentado porque no se han creado el archivo correspondiente.
 elseif (isset($_POST['elimina'])) {
     header("Location: eliminar_producto.php");
 }
