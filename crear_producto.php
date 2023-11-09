@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
-    $imagen = $_POST['imagen'];
+    $img = basename($_FILES["imagen"]["name"]);
     $categoria = $_POST['categoria'];
 
 
@@ -40,13 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':precio', $precio);
-        $stmt->bindParam(':imagen', $imagen);
+        $stmt->bindParam(':imagen', $img);
         $stmt->bindParam(':categoria', $categoria);
 
 
 
-        if($imagen != "jpg" && $imagen != "jpeg" && $imagen != "png" && $imagen != null) {
-            echo "<h1>2</h1>";        
+        if($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "jpeg" 
+        && $_FILES["imagen"]["type"] != "png" && $_FILES["imagen"]["type"] != null) {        
             $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
           } else {
             $target_dir = "img\\";                                     
