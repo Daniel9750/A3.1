@@ -11,11 +11,11 @@
 
 if (isset($_POST['crear'])) {
     header("Location: crear_producto.php");
+} elseif (isset($_POST['list'])) {
+    header("Location: listado_productos.php");
 } 
 /* De momento, estarán comentadas porque no se han creado los archivos correspondientes.
-elseif (isset($_POST['list'])) {
-    header("Location: listado_productos.php");
-} elseif (isset($_POST['mod'])) {
+elseif (isset($_POST['mod'])) {
     header("Location: modifica_producto.php");
 } elseif (isset($_POST['elimina'])) {
     header("Location: elimina_producto.php");
