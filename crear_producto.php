@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Crear Producto</title>
+    <title>Crear producto</title>
 </head>
 <body>
 
