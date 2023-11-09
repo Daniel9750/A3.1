@@ -45,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-        if($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "jpeg" 
-        && $_FILES["imagen"]["type"] != "png" && $_FILES["imagen"]["type"] != null) {        
+        if($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "image/jpeg" 
+        && $_FILES["imagen"]["type"] != "image/png" && $_FILES["imagen"]["type"] != null) {        
             $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
           } else {
-            $target_dir = "img\\";                                     
+            $target_dir = 'img\\';                                     
         $target_file = $target_dir . basename($_FILES["imagen"]["name"]);     
 
         $counter = 0;                                                       
