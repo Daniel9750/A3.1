@@ -69,10 +69,11 @@ try {
                 <td>{$row['Categoría']}</td>
                 <td class='action-icons'>
 
+                
                     <img src='icon/eliminar.png' alt='Eliminar'>
-
+                    <a href='modificar_producto.php?id={$row['id']}'>
                     <img src='icon/editar.png' alt='Modificar'>
-
+                    </a>
                 </td>
               </tr>";
     }
