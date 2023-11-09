@@ -8,10 +8,12 @@
 
 
 <?php
-/* De momento, estarán todas comentadas porque no se han creado los archivos correspondientes.
+
 if (isset($_POST['crear'])) {
     header("Location: crear_producto.php");
-} elseif (isset($_POST['list'])) {
+} 
+/* De momento, estarán comentadas porque no se han creado los archivos correspondientes.
+elseif (isset($_POST['list'])) {
     header("Location: listado_productos.php");
 } elseif (isset($_POST['mod'])) {
     header("Location: modifica_producto.php");
