@@ -47,16 +47,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         if($imagen != "jpg" && $imagen != "jpeg" && $imagen != "png" && $imagen != null) {
-            $errores[] =  "Solo se permiten imágenes tipo JPG, JPEG, PNG";
+            $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
           } else {
             $target_dir = "img\\";                                     
+        $target_file = $target_dir . basename($_FILES["imagen"]["name"]);     
 
-            move_uploaded_file($_FILES["imagen"], $target_dir); 
-            
+        $counter = 0;                                                       
+
+        while (file_exists($target_file)) 
+        {
+            $counter++;                                                     
+
+            $pathinfo = pathinfo($target_file);                             
+
+            $name = $pathinfo["filename"];                                  
+            $extension = $pathinfo["extension"];                            
+    
+            $target_file =  $target_dir                                     
+                            . 
+                            $name                                          
+                            . 
+                            "_"                                             
+                            . 
+                            $counter                                        
+                            .
+                            "."
+                            .
+                            $extension;                                     
+        }
+
+        move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file); 
           }
 
 
-          
+
 
         if ($stmt->execute()) {
             
