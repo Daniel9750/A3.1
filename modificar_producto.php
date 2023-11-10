@@ -22,17 +22,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $precio = $_POST['precio'];
+    $img = basename($_FILES["imagen"]["name"]);
     $categoria = $_POST['categoria'];
+
 
     $errores = validarProducto($nombre, $precio);
 
     if (empty($errores)) {
-        $sql = "UPDATE Productos SET Nombre = :nombre, Precio = :precio, Categoría = :categoria WHERE Id = :id";
+        $sql = "UPDATE Productos SET Nombre = :nombre, Precio = :precio, Imagen = :imagen, Categoría = :categoria WHERE Id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':nombre', $nombre);
         $stmt->bindParam(':precio', $precio);
+        $stmt->bindParam(':imagen', $img);
         $stmt->bindParam(':categoria', $categoria);
+
+        if($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "image/jpeg" 
+        && $_FILES["imagen"]["type"] != "image/png" && $_FILES["imagen"]["type"] != null) {        
+            $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
+          } else {
+            $target_dir = 'img\\';                                     
+        $target_file = $target_dir . basename($_FILES["imagen"]["name"]);     
+
+        $counter = 0;                                                       
+
+        while (file_exists($target_file)) 
+        {
+            $counter++;                                                     
+
+            $pathinfo = pathinfo($target_file);                             
+
+            $name = $pathinfo["filename"];                                  
+            $extension = $pathinfo["extension"];                            
+    
+            $target_file =  $target_dir                                     
+                            . 
+                            $name                                          
+                            . 
+                            "_"                                             
+                            . 
+                            $counter                                        
+                            .
+                            "."
+                            .
+                            $extension;                                     
+        }
+
+        move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file); 
+          }
 
         if ($stmt->execute()) {
             echo "Se ha actualizado el producto.";
@@ -69,19 +106,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '</form>';
     } else {
         $id = $_GET['id'];
-        $query = "SELECT Id, Nombre, Precio, Categoría FROM Productos WHERE Id = :id";
+        $query = "SELECT Id, Nombre, Precio, Imagen, Categoría FROM Productos WHERE Id = :id";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $producto = $stmt->fetch(PDO::FETCH_ASSOC);
 
         echo "<h1>Modificar Producto</h1>";
-        echo '<form method="POST" action="modificar_producto.php">';
+        echo '<form method="POST" action="modificar_producto.php" enctype="multipart/form-data">';
         echo '<input type="hidden" name="id" value="' . $producto['Id'] . '">';
         echo '<label for="nombre">Nombre:</label>';
         echo '<input type="text" name="nombre" id="nombre" value="' . $producto['Nombre'] . '" required><br>';
         echo '<label for="precio">Precio:</label>';
         echo '<input type="number" name="precio" id="precio" value="' . $producto['Precio'] . '" step="0.01" required><br>';
+
+        echo '<label for="imagen">Imagen:</label>';
+        echo '<input type="file" name="imagen" id="imagen" value="' . $producto['Imagen'] . '"><br>';
+
         echo '<label for="categoria">Categoría:</label>';
         echo '<select name="categoria" id="categoria">';
         
