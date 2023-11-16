@@ -2,6 +2,14 @@
 <html>
 <head>
     <title>mitiendaonline</title>
+    <style>
+    button {
+        color: white;
+        background-color: rgb(133, 7, 7);
+        width:300;
+        height:50;
+    }
+    </style>
 </head>
 <body>
 <h1>mitiendaonline</h1>
@@ -15,23 +23,20 @@ if (isset($_POST['crear'])) {
     header("Location: listado_productos.php");
 } elseif (isset($_POST['mod'])) {
     header("Location: modificar_producto.php");
-} 
-/* De momento, estará comentado porque no se han creado el archivo correspondiente.
-elseif (isset($_POST['elimina'])) {
+} elseif (isset($_POST['elimina'])) {
     header("Location: eliminar_producto.php");
 }
-*/
 ?>
 
 
 <form method="post">
-    <button id="crear" style="color: white; background-color: rgb(133, 7, 7); width:300; height:50" name="crear">Crear un producto</button>
+    <button id="crear" name="crear">Crear un producto</button>
     <br><br><br>
-    <button id="list" style="color: white; background-color: rgb(133, 7, 7); width:300; height:50" name="list">Consultar Listado de productos</button>
+    <button id="list" name="list">Consultar Listado de productos</button>
     <br><br><br>
-    <button id="mod" style="color: white; background-color: rgb(133, 7, 7); width:300; height:50" name="mod">Modificar producto</button>
+    <button id="mod" name="mod">Modificar producto</button>
     <br><br><br>
-    <button id="elimina" style="color: white; background-color: rgb(133, 7, 7); width:300; height:50" name="elimina">Eliminar producto</button>
+    <button id="elimina" name="elimina">Eliminar producto</button>
 </form>
 
 

@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar producto</title>
+    <style>
+        img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
 </head>
 <body>
 
 <?php
 require 'validar_producto.php';
+require 'config.php';
 
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=mitiendaonline', 'mitiendaonline', 'mitiendaonline');
+    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Error en la conexión a la base de datos: ' . $e->getMessage();
@@ -25,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $img = basename($_FILES["imagen"]["name"]);
     $categoria = $_POST['categoria'];
 
-
     $errores = validarProducto($nombre, $precio);
 
     if (empty($errores)) {
@@ -37,39 +43,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bindParam(':imagen', $img);
         $stmt->bindParam(':categoria', $categoria);
 
-        if($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "image/jpeg" 
-        && $_FILES["imagen"]["type"] != "image/png" && $_FILES["imagen"]["type"] != null) {        
+        if ($_FILES["imagen"]["type"] != "image/jpg" && $_FILES["imagen"]["type"] != "image/jpeg" 
+            && $_FILES["imagen"]["type"] != "image/png" && $_FILES["imagen"]["type"] != null) {        
             $errores[] =  "La imagen debe ser un .jpg, .jpeg o un .png";
-          } else {
-            $target_dir = 'img\\';                                     
-        $target_file = $target_dir . basename($_FILES["imagen"]["name"]);     
+        } else {
+            $target_dir = 'img/';                                     
+            $target_file = $target_dir . basename($_FILES["imagen"]["name"]);     
 
-        $counter = 0;                                                       
+            $counter = 0;                                                       
 
-        while (file_exists($target_file)) 
-        {
-            $counter++;                                                     
+            while (file_exists($target_file)) 
+            {
+                $counter++;                                                     
 
-            $pathinfo = pathinfo($target_file);                             
+                $pathinfo = pathinfo($target_file);                             
 
-            $name = $pathinfo["filename"];                                  
-            $extension = $pathinfo["extension"];                            
-    
-            $target_file =  $target_dir                                     
-                            . 
-                            $name                                          
-                            . 
-                            "_"                                             
-                            . 
-                            $counter                                        
-                            .
-                            "."
-                            .
-                            $extension;                                     
+                $name = $pathinfo["filename"];                                  
+                $extension = $pathinfo["extension"];                            
+        
+                $target_file =  $target_dir                                     
+                                . 
+                                $name                                          
+                                . 
+                                "_"                                             
+                                . 
+                                $counter                                        
+                                .
+                                "."
+                                .
+                                $extension;                                     
+            }
+
+            move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file); 
         }
-
-        move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file); 
-          }
 
         if ($stmt->execute()) {
             echo "Se ha actualizado el producto.";
@@ -88,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
 
     if (!isset($_GET['id'])) {
-        echo "<h1>Seleccionar Producto</h1>";
+        echo "<h1>Elige un Producto</h1>";
         echo '<form method="GET" action="modificar_producto.php">';
         echo '<label for="id">Seleccionar Producto:</label>';
         echo '<select name="id" id="id">';
@@ -119,10 +125,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<input type="text" name="nombre" id="nombre" value="' . $producto['Nombre'] . '" required><br>';
         echo '<label for="precio">Precio:</label>';
         echo '<input type="number" name="precio" id="precio" value="' . $producto['Precio'] . '" step="0.01" required><br>';
-
         echo '<label for="imagen">Imagen:</label>';
-        echo '<input type="file" name="imagen" id="imagen" value="' . $producto['Imagen'] . '"><br>';
-
+        echo '<img src="img/' . $producto['Imagen'] . '"><br>';
+        echo '<input type="file" name="imagen" id="imagen"><br>';
         echo '<label for="categoria">Categoría:</label>';
         echo '<select name="categoria" id="categoria">';
         

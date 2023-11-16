@@ -8,11 +8,12 @@
 
 <?php
 require 'validar_producto.php';
+require 'config.php';
 
 
 
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=mitiendaonline', 'mitiendaonline', 'mitiendaonline');
+    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Error en la conexión a la base de datos: ' . $e->getMessage();
@@ -87,12 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Se ha añadido el producto.";
             echo '<br><a href="a3.1.php">Volver al menú principal</a>';
         } else {
-            echo "Error al insertar el producto.";
+            echo "Error al crear producto.";
         }
     } else {
 
 
-        echo "Se encontraron los siguientes errores:";
+        echo "Se han encontrado los siguientes errores:";
         echo '<ul>';
         foreach ($errores as $error) {
             echo "<li>$error</li>";
@@ -113,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <input type="number" name="precio" id="precio" step="0.01" required><br>
 
 
-    <label for="imagen">Imagen del Producto:</label>
+    <label for="imagen">Imagen del producto:</label>
     <input type="file" name="imagen" id="imagen">
     <br><br>
 
@@ -136,3 +137,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 </body>
 </html>
+

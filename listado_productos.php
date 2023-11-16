@@ -40,15 +40,17 @@
 
 <?php
 
+require 'config.php';
+
+
+
 try {
-    $pdo = new PDO('mysql:host=localhost;dbname=mitiendaonline', 'mitiendaonline', 'mitiendaonline');
+    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Consulta SQL para obtener datos de productos
     $stmt = $pdo->prepare("SELECT id, Nombre, Precio, Imagen, Categoría FROM Productos");
     $stmt->execute();
 
-    // Mostrar tabla HTML con datos de productos
     echo "<table>
             <tr>
                 <th>ID</th>
@@ -69,9 +71,9 @@ try {
                 <td>{$row['Categoría']}</td>
                 <td class='action-icons'>
 
-                
+                    <a href='eliminar_producto.php?id={$row['id']}'>
                     <img src='icon/eliminar.png' alt='Eliminar'>
-
+                    </a>
                     
                     <a href='modificar_producto.php?id={$row['id']}'>
                     <img src='icon/editar.png' alt='Modificar'>
@@ -88,7 +90,6 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
-// Cerrar conexión
 $pdo = null;
 ?>
 
