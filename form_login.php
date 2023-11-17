@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $conexion = new PDO($dsn, $usuario, $contrasena);
 
-        $consulta = "SELECT contrasena_hash FROM usuarios WHERE correo_electronico = '$correo_form'";
+        $consulta = "SELECT contrasena_hash FROM usuarios2 WHERE correo_electronico = '$correo_form'";
         $resultado = $conexion->query($consulta);
 
         $fila = $resultado->fetch(PDO::FETCH_ASSOC);
