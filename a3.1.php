@@ -21,7 +21,7 @@ session_start();
 
 require("comprueba_login.php");
 
-echo "<br>Usuario logueado: ".$_SESSION["corrreo_electronico"]."<br>";
+echo "<br>Usuario logueado: ".$_SESSION["correo_electronico"]."<br><br>";
 
 if (isset($_POST['crear'])) {
     header("Location: crear_producto.php");
