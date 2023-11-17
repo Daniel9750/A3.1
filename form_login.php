@@ -27,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: a3.1.php");
             exit();
         } else {
-            echo "Contraseña incorecta. Por favor, inténtelo de nuevo";
+            echo "Contraseña incorecta. Inténtelo de nuevo";
         }
     } catch (PDOException $e) {
         echo "Error al conectar con la base de datos: " . $e->getMessage();

@@ -2,17 +2,17 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
+    <title>Iniciar sesión</title>
 </head>
 <body>
-    <h2>Iniciar Sesión</h2>
+    <h2>Iniciar sesión</h2>
 
     <?php
 
     ?>
 
     <form action="form_login.php" method="post">
-        <label for="correo_electronico">Correo Electrónico: </label>
+        <label for="correo_electronico">Correo electrónico: </label>
         <input type="email" id="correo_electronico" name="correo_electronico" required>
 
         <br>
