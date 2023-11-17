@@ -22,7 +22,9 @@
 
         <br>
 
-        <input type="submit" value="Iniciar Sesión">
+        <input type="submit" style="color: white;
+        background-color: rgb(133, 7, 7);
+        width:300; height:50;" value="Iniciar Sesión">
     </form>
 </body>
 </html>
