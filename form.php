@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Iniciar sesión</title>
 </head>
+
 <body>
     <h2>Iniciar sesión</h2>
 
@@ -27,4 +29,5 @@
         width:300; height:50;" value="Iniciar Sesión">
     </form>
 </body>
+
 </html>

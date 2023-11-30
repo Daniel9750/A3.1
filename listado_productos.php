@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +12,14 @@
             margin-top: 20px;
         }
 
-        table, th, td {
+        table,
+        th,
+        td {
             border: 1px solid #ddd;
         }
 
-        th, td {
+        th,
+        td {
             padding: 10px;
             text-align: left;
         }
@@ -30,33 +34,35 @@
             cursor: pointer;
             margin-right: 5px;
         }
+
         img {
             width: 60px;
             height: 60px;
         }
     </style>
 </head>
+
 <body>
 
-<?php
+    <?php
 
-require 'config.php';
+    require 'config.php';
 
-session_start();
+    session_start();
 
-require("comprueba_login.php");
+    require("comprueba_login.php");
 
-echo "<br>Usuario logueado: ".$_SESSION["correo_electronico"]."<br><br>";
+    echo "<br>Usuario logueado: " . $_SESSION["correo_electronico"] . "<br><br>";
 
 
-try {
-    $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->prepare("SELECT id, Nombre, Precio, Imagen, Categoría FROM Productos");
-    $stmt->execute();
+        $stmt = $pdo->prepare("SELECT id, Nombre, Precio, Imagen, Categoría FROM Productos");
+        $stmt->execute();
 
-    echo "<table>
+        echo "<table>
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
@@ -65,10 +71,10 @@ try {
                 <th>Categoría</th>
                 <th>Editar</th>
             </tr>";
-        
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>
                 <td>{$row['id']}</td>
                 <td>{$row['Nombre']}</td>
                 <td>{$row['Precio']}</td>
@@ -85,18 +91,16 @@ try {
                     </a>
                 </td>
               </tr>";
+        }
+
+        echo "</table>";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
     }
 
-    echo "</table>";
-} 
-   
-
- catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
-
-$pdo = null;
-?>
+    $pdo = null;
+    ?>
 
 </body>
+
 </html>
