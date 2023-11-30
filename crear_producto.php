@@ -10,6 +10,11 @@
 require 'validar_producto.php';
 require 'config.php';
 
+session_start();
+
+require("comprueba_login.php");
+
+echo "<br>Usuario logueado: ".$_SESSION["correo_electronico"]."<br><br>";
 
 
 try {

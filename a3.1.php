@@ -17,6 +17,12 @@
 
 <?php
 
+session_start();
+
+require("comprueba_login.php");
+
+echo "<br>Usuario logueado: ".$_SESSION["correo_electronico"]."<br><br>";
+
 if (isset($_POST['crear'])) {
     header("Location: crear_producto.php");
 } elseif (isset($_POST['list'])) {
@@ -25,6 +31,8 @@ if (isset($_POST['crear'])) {
     header("Location: modificar_producto.php");
 } elseif (isset($_POST['elimina'])) {
     header("Location: eliminar_producto.php");
+} elseif (isset($_POST['salir'])) {
+    header("Location: logout.php");
 }
 ?>
 
@@ -37,6 +45,8 @@ if (isset($_POST['crear'])) {
     <button id="mod" name="mod">Modificar producto</button>
     <br><br><br>
     <button id="elimina" name="elimina">Eliminar producto</button>
+    <br><br><br>
+    <button id="salir" name="salir">Salir</button>
 </form>
 
 
