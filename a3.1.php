@@ -10,6 +10,13 @@
             width: 300;
             height: 50;
         }
+
+        <?php
+
+        $color_fondo_cookie = isset($_COOKIE['color_fondo']) ? $_COOKIE['color_fondo'] : '#CCCCCC';
+
+        echo "body { background-color: $color_fondo_cookie; }";
+        ?>
     </style>
 </head>
 

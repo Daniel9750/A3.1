@@ -13,6 +13,8 @@
 
     ?>
 
+
+
     <form action="form_login.php" method="post">
         <label for="correo_electronico">Correo electrónico: </label>
         <input type="email" id="correo_electronico" name="correo_electronico" required>

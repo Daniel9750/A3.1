@@ -3,6 +3,14 @@
 
 <head>
     <title>Crear producto</title>
+    <style>
+        <?php
+
+        $color_fondo_cookie = isset($_COOKIE['color_fondo']) ? $_COOKIE['color_fondo'] : '#CCCCCC';
+
+        echo "body { background-color: $color_fondo_cookie; }";
+        ?>
+    </style>
 </head>
 
 <body>
