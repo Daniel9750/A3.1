@@ -39,19 +39,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $color_fondo_cookie = isset($_COOKIE['color_fondo']) ? $_COOKIE['color_fondo'] : '#CCCCCC';
 
-
-            $consulta_nombre = "SELECT nombre FROM usuarios2 WHERE correo_electronico = '$correo_form'";
-
-            $resultado_nombre = $conexion->query($consulta_nombre);
-
-            $fila_nombre = $resultado_nombre->fetch(PDO::FETCH_ASSOC);
-
-            $nombre_usuario = $fila_nombre['nombre'];
-
-            $_SESSION['nombre'] = $nombre_usuario;
-
-
-
             header("Location: a3.1.php");
             exit();
         } else {
